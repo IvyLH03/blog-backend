@@ -2,7 +2,7 @@ import express from 'express'
 import { init } from './blog.js';
 
 const app = express()
-const port = 6000
+const port = 7000
 
 // CORS
 app.use((req, res, next) => {
