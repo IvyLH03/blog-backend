@@ -44,7 +44,7 @@ app.get('/blog/:id', async (req, res) => {
 )
 
 // create a blog
-app.post('/blog', async (req, res) => {
+app.post('/blog/create', async (req, res) => {
   if(req.body.upload_password !== process.env.UPLOAD_PASSWORD) {
     return res.status(401).json({error: 'Unauthorized'})
   }
