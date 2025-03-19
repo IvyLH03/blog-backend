@@ -39,7 +39,7 @@ app.get('/blogs', async (req, res) => {
 // get the content of a blog
 app.get('/blog/:id', async (req, res) => {
   const blog = await sql`select * from blog where id = ${req.params.id}`
-  res.json(blog)
+  res.json(blog[0])
 }
 )
 
