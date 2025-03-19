@@ -63,6 +63,16 @@ app.delete('/blog/:id', async (req, res) => {
 }
 )
 
+// update a blog
+app.put('/blog/:id', async (req, res) => {
+  if(req.body.upload_password !== process.env.UPLOAD_PASSWORD) {
+    return res.status(401).json({error: 'Unauthorized'})
+  }
+  const blog = await sql`update blog set title = ${req.body.title}, content = ${req.body.content} where id = ${req.params.id} returning id, title, created_at`
+  res.json(blog)
+}
+)
+
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
 })
