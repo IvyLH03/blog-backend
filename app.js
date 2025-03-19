@@ -1,5 +1,5 @@
 import express from 'express'
-import { init } from './blog';
+import { init } from './blog.js';
 
 const app = express()
 const port = 6000
