@@ -1,7 +1,7 @@
 import postgres from 'postgres'
 import "./loadEnv.js";
 
-const sql = postgres('postgres://username:password@host:port/database', {
+const sql = postgres({
   host                 : process.env.DB_HOST,            // Postgres ip address[s] or domain name[s]
   port                 : process.env.DB_PORT,          // Postgres server port[s]
   database             : process.env.DB_DATABASE,            // Name of database to connect to
