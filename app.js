@@ -1,5 +1,6 @@
 import express from 'express'
 import { init } from './blog.js';
+import sql from './db.js';
 
 const app = express()
 const port = 7000
