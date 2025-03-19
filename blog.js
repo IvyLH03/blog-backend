@@ -1,5 +1,17 @@
 import sql from './db.js'
 
+export async function init() {
+  const res = await sql`
+    create table if not exists blog (
+      id serial primary key,
+      title text,
+      content text,
+      created_at timestamp default now()
+    )
+  `
+  return res
+}
+
 // async function getUsersOver(age) {
 //   const users = await sql`
 //     select
