@@ -3,7 +3,7 @@ import { init } from './blog.js';
 import sql from './db.js';
 
 const app = express()
-const port = 7000
+const port = process.env.APP_PORT
 
 // CORS
 app.use((req, res, next) => {
@@ -37,9 +37,18 @@ app.get('/blogs', async (req, res) => {
 )
 
 // get the content of a blog
-app.get('/blog/:id', async (req, res) => {
-  const blog = await sql`select * from blog where id = ${req.params.id}`
-  res.json(blog[0])
+app.get('/blog/:id(\\d+)', async (req, res) => {
+  try {
+    parseInt(req.params.id)
+    const blog = await sql`select * from blog where id = ${req.params.id}`
+    if(blog.length === 0) {
+      return res.status(404).json({error: 'Blog not found'})
+    }
+    res.json(blog[0])
+  }
+  catch (e) {
+    res.status(400).json({error: 'Invalid blog id'})
+  }
 }
 )
 
@@ -54,7 +63,7 @@ app.post('/blog/create', async (req, res) => {
 )
 
 // delete a blog
-app.delete('/blog/:id', async (req, res) => {
+app.delete('/blog/:id(\\d+)', async (req, res) => {
   if(req.body.upload_password !== process.env.UPLOAD_PASSWORD) {
     return res.status(401).json({error: 'Unauthorized'})
   }
@@ -64,7 +73,7 @@ app.delete('/blog/:id', async (req, res) => {
 )
 
 // update a blog
-app.put('/blog/:id', async (req, res) => {
+app.put('/blog/:id(\\d+)', async (req, res) => {
   if(req.body.upload_password !== process.env.UPLOAD_PASSWORD) {
     return res.status(401).json({error: 'Unauthorized'})
   }

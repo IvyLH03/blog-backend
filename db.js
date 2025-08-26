@@ -6,7 +6,10 @@ const sql = postgres({
   port                 : process.env.DB_PORT,          // Postgres server port[s]
   database             : process.env.DB_DATABASE,            // Name of database to connect to
   username             : process.env.DB_USERNAME,            // Username of database user
-  password             : process.env.DB_PASSWORD,            // Password of database user
+  password             : process.env.DB_PASSWORD,            // Password of database user,
+  ssl: {
+      rejectUnauthorized: false
+  }
 })
 
 console.log(process.env.DB_HOST)
