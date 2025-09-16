@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 // get a list of all blogs
 app.get('/blogs', async (req, res) => {
-  const blogs = await sql`select id, title, created_at from blog`
+  const blogs = await sql`select id, title, created_at from blog order by created_at desc`
   res.json(blogs)
 }
 )
